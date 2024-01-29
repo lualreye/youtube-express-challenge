@@ -13,6 +13,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const axios_1 = __importDefault(require("axios"));
+const handleTimeSince_utils_1 = require("../utils/handleTimeSince.utils");
+const handleFormatViews_utils_1 = require("../utils/handleFormatViews.utils");
 class YoutubeService {
     constructor(apiKey) {
         this.endpoint = 'https://www.googleapis.com/youtube/v3';
@@ -24,19 +26,21 @@ class YoutubeService {
             try {
                 const response = yield axios_1.default.get(`${this.endpoint}/videos`, {
                     params: {
-                        part: 'snippet,contentDetails',
+                        part: 'snippet,contentDetails,statistics',
                         chart: 'mostPopular',
                         key: this.apiKey,
                         maxResults: 10,
                         pageToken: pageToken
                     }
                 });
+                console.log('videos', response.data.items[0]);
                 const videos = response.data.items.map((item) => ({
                     id: item.id,
                     title: item.snippet.title,
                     thumbnail: item.snippet.thumbnails.default.url,
                     channelTitle: item.snippet.channelTitle,
-                    description: item.snippet.description
+                    publishedAt: this.timeSince(item.snippet.publishedAt),
+                    viewCount: this.formatViews(item.statistics.viewCount)
                 }));
                 const nextPageToken = response.data.nextPageToken;
                 return {
@@ -55,7 +59,7 @@ class YoutubeService {
             try {
                 const response = yield axios_1.default.get(`${this.endpoint}/videos`, {
                     params: {
-                        part: 'snippet,contentDetails',
+                        part: 'snippet,contentDetails,statistics',
                         id: videoId,
                         key: this.apiKey
                     }
@@ -64,9 +68,12 @@ class YoutubeService {
                     id: item.id,
                     title: item.snippet.title,
                     thumbnail: item.snippet.thumbnail,
-                    videoId: `https://www.youtube.com/watch?v=${item.id}`,
+                    videoURL: `https://www.youtube.com/watch?v=${item.id}`,
                     channelTitle: item.snippet.channelTitle,
-                    description: item.snippet.description
+                    description: item.snippet.description,
+                    publishedAt: this.timeSince(item.snippet.publishedAt),
+                    viewCount: this.formatViews(item.statistics.viewCount),
+                    likeCount: this.formatViews(item.statistics.likeCount)
                 }));
                 return video;
             }
@@ -75,6 +82,12 @@ class YoutubeService {
                 throw new Error('Youtube do not deliver');
             }
         });
+    }
+    timeSince(dateInput) {
+        return (0, handleTimeSince_utils_1.handleTimeSince)(dateInput);
+    }
+    formatViews(views) {
+        return (0, handleFormatViews_utils_1.handleFormatCounter)(views);
     }
 }
 exports.default = YoutubeService;
