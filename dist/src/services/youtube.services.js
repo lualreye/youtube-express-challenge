@@ -66,7 +66,7 @@ class YoutubeService {
                 const video = response.data.items.map((item) => ({
                     id: item.id,
                     title: item.snippet.title,
-                    thumbnail: item.snippet.thumbnail,
+                    thumbnail: item.snippet.thumbnails.default.url,
                     videoURL: `https://www.youtube.com/embed/${item.id}`,
                     channelTitle: item.snippet.channelTitle,
                     description: item.snippet.description,
