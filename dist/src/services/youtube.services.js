@@ -33,11 +33,10 @@ class YoutubeService {
                         pageToken: pageToken
                     }
                 });
-                console.log('videos', response.data.items[0]);
                 const videos = response.data.items.map((item) => ({
                     id: item.id,
                     title: item.snippet.title,
-                    thumbnail: item.snippet.thumbnails.default.url,
+                    thumbnail: item.snippet.thumbnails.high.url,
                     channelTitle: item.snippet.channelTitle,
                     publishedAt: this.timeSince(item.snippet.publishedAt),
                     viewCount: this.formatViews(item.statistics.viewCount)
@@ -68,7 +67,7 @@ class YoutubeService {
                     id: item.id,
                     title: item.snippet.title,
                     thumbnail: item.snippet.thumbnail,
-                    videoURL: `https://www.youtube.com/watch?v=${item.id}`,
+                    videoURL: `https://www.youtube.com/embed/${item.id}`,
                     channelTitle: item.snippet.channelTitle,
                     description: item.snippet.description,
                     publishedAt: this.timeSince(item.snippet.publishedAt),
