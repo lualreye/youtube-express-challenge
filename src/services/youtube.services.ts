@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { handleTimeSince } from '../utils/handleTimeSince.utils';
+import { handleFormatCounter } from '../utils/handleFormatViews.utils';
 
 class YoutubeService {
   private endpoint: string = 'https://www.googleapis.com/youtube/v3';
@@ -15,7 +17,7 @@ class YoutubeService {
         `${this.endpoint}/videos`,
         {
           params: {
-            part: 'snippet,contentDetails',
+            part: 'snippet,contentDetails,statistics',
             chart: 'mostPopular',
             key: this.apiKey,
             maxResults: 10,
@@ -24,18 +26,20 @@ class YoutubeService {
         }
       );
 
+      console.log('videos', response.data.items[0])
+
       const videos = response.data.items.map((item: any) =>
         ({
           id: item.id,
           title: item.snippet.title,
           thumbnail: item.snippet.thumbnails.default.url,
           channelTitle: item.snippet.channelTitle,
-          description: item.snippet.description
+          publishedAt: this.timeSince(item.snippet.publishedAt),
+          viewCount: this.formatViews(item.statistics.viewCount)
         })
       )
 
       const nextPageToken = response.data.nextPageToken;
-
 
       return {
         videos,
@@ -53,7 +57,7 @@ class YoutubeService {
         `${this.endpoint}/videos`,
         {
           params: {
-            part: 'snippet,contentDetails',
+            part: 'snippet,contentDetails,statistics',
             id: videoId,
             key: this.apiKey
           }
@@ -64,9 +68,12 @@ class YoutubeService {
           id: item.id,
           title: item.snippet.title,
           thumbnail: item.snippet.thumbnail,
-          videoId: `https://www.youtube.com/watch?v=${item.id}`,
+          videoURL: `https://www.youtube.com/watch?v=${item.id}`,
           channelTitle: item.snippet.channelTitle,
-          description: item.snippet.description
+          description: item.snippet.description,
+          publishedAt: this.timeSince(item.snippet.publishedAt),
+          viewCount: this.formatViews(item.statistics.viewCount),
+          likeCount: this.formatViews(item.statistics.likeCount)
         })
       )
       return video; 
@@ -74,6 +81,14 @@ class YoutubeService {
       console.log(error);
       throw new Error('Youtube do not deliver');
     }
+  }
+
+  timeSince(dateInput: string): string {
+    return handleTimeSince(dateInput);
+  }
+
+  formatViews(views: number): string {
+    return handleFormatCounter(views);
   }
 }
 
