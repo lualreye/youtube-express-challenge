@@ -6,13 +6,13 @@ import routerApi from './routes';
 function createApp() {
   const app = express();
 
-  const whitelist = [
-    'http://localhost:3000',
-    'https://chipper-rugelach-bfaf2e.netlify.app',
-    'https://youtube-nuxt-challenge.vercel.app'
-  ]
+  // const whitelist = [
+  //   'http://localhost:3000',
+  //   'https://chipper-rugelach-bfaf2e.netlify.app',
+  //   'https://youtube-nuxt-challenge.vercel.app'
+  // ]
 
-  app.use(cors({ origin: whitelist }));
+  app.use(cors());
 
   app.use(express.json());
 
