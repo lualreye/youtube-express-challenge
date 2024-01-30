@@ -8,7 +8,8 @@ function createApp() {
 
   const whitelist = [
     'http://localhost:3000',
-    'https://chipper-rugelach-bfaf2e.netlify.app'
+    'https://chipper-rugelach-bfaf2e.netlify.app',
+    'https://youtube-nuxt-challenge.vercel.app'
   ]
 
   app.use(cors({ origin: whitelist }));
