@@ -12,10 +12,11 @@ export async function getVideos(req: Request, res: Response) {
   try {
     const { videos, nextPageToken } = await youtubeService.getVideoList(pageToken);
 
-    return res.send({
-      videos,
-      nextPageToken
-    });
+    // return res.send({
+    //   videos,
+    //   nextPageToken
+    // });
+    return res.send('hola');
   } catch (error) {
     handleHttpError(res, 'Cannot get videos', 404);
   }
