@@ -1,8 +1,8 @@
-# Youtube Challenge
+#Youtube Challenge
 
 Este proyecto es una aplicación web que permite a los usuarios interactuar con videos de YouTube.
 
-## Índice
+##Índice
 
 - [Deployment](#deployment)
 - [Env variables](#envVariables)
@@ -10,11 +10,11 @@ Este proyecto es una aplicación web que permite a los usuarios interactuar con 
 - [Instalación](#instalación)
 - [Uso](#uso)
 
-## deployment
+##deployment
 
 La aplicación se encuentra desplegada en vercel, y puede ser consultada en el siguiente link `https://youtube-express-challenge.vercel.app/`.
 
-## envVariables
+##envVariables
 
 Para que el proyecto pueda correr exitosamente se deben agregar las respectivas variables de entorno
 
@@ -22,11 +22,11 @@ PORT=8000
 YOUTUBE_API_KEY=AIzaSyBPgcqgW0KYlldtj5Le3LIqdyuAzHE7ums
 DB_URI=mongodb+srv://youtube:42t9Nhxssr4sW6XO@cluster0.q52p2ji.mongodb.net/?retryWrites=true&w=majority
 
-## Descripción
+##Descripción
 
 La aplicación está construida con Express.js y utiliza CORS para permitir solicitudes desde ciertos orígenes. La lista de orígenes permitidos se puede configurar en el archivo `app.ts`.
 
-## Instalación
+##Instalación
 
 Para instalar y ejecutar este proyecto, sigue estos pasos:
 
@@ -36,4 +36,4 @@ Para instalar y ejecutar este proyecto, sigue estos pasos:
 
 ## Uso
 
-Para utilizar esta aplicación, navega a `http://localhost:3000` en tu navegador.
+Para utilizar esta aplicación, navega a `http://localhost:8000` en tu navegador.
