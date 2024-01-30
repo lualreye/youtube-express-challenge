@@ -7,7 +7,8 @@ function createApp() {
   const app = express();
 
   const whitelist = [
-    'http://localhost:3000'
+    'http://localhost:3000',
+    'https://chipper-rugelach-bfaf2e.netlify.app/'
   ]
 
   app.use(cors({ origin: whitelist }));
