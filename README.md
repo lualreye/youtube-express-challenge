@@ -1,8 +1,8 @@
-#Youtube Challenge
+# Youtube Challenge
 
 Este proyecto es una aplicación web que permite a los usuarios interactuar con videos de YouTube.
 
-##Índice
+## Índice
 
 - [Deployment](#deployment)
 - [Env variables](#envVariables)
