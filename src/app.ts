@@ -11,23 +11,7 @@ function createApp() {
     'https://chipper-rugelach-bfaf2e.netlify.app'
   ]
 
-  const corsOptions = {
-    origin: function (origin: string | undefined, callback: Function) {
-      if (whitelist.indexOf(origin!) !== -1 || !origin) {
-        callback(null, true)
-      } else {
-        console.error('CORS BLOCKED', origin)
-        callback(new Error('Not allowed by CORS'))
-      }
-    },
-    credentials: true,
-    allowedHeaders: 'Content-Type,Authorization',
-    optionsSuccessStatus: 200 
-  }
-
-  app.use(cors(corsOptions));
-
-  app.options('*', cors(corsOptions));
+  app.use(cors({ origin: whitelist }));
 
   app.use(express.json());
 
