@@ -8,10 +8,12 @@ const cors_1 = __importDefault(require("cors"));
 const routes_1 = __importDefault(require("./routes"));
 function createApp() {
     const app = (0, express_1.default)();
-    const whitelist = [
-        'http://localhost:3000'
-    ];
-    app.use((0, cors_1.default)({ origin: whitelist }));
+    // const whitelist = [
+    //   'http://localhost:3000',
+    //   'https://chipper-rugelach-bfaf2e.netlify.app',
+    //   'https://youtube-nuxt-challenge.vercel.app'
+    // ]
+    app.use((0, cors_1.default)());
     app.use(express_1.default.json());
     app.get('/', (_req, res) => {
         res.send('Youtube Challenge is online');
