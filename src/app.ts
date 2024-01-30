@@ -19,10 +19,15 @@ function createApp() {
         console.error('CORS BLOCKED', origin)
         callback(new Error('Not allowed by CORS'))
       }
-    }
+    },
+    credentials: true,
+    allowedHeaders: 'Content-Type,Authorization',
+    optionsSuccessStatus: 200 
   }
 
-  app.use('*', cors(corsOptions));
+  app.use(cors(corsOptions));
+
+  app.options('*', cors(corsOptions));
 
   app.use(express.json());
 
